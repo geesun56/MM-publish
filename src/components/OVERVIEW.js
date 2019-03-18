@@ -8,140 +8,89 @@ import Pie_spending from "./pie"
 
 
 const Graph_data = [
-  {name: 'Jan 1', uv: 4000, pv: 2400, amt: 2400},
-  {name: 'Jan 17', uv: 3000, pv: 1398, amt: 2210},
-  {name: 'Jan 22', uv: 2000, pv: 9800, amt: 2290},
-  {name: 'Feb 7', uv: 2780, pv: 3908, amt: 2000},
-  {name: 'Feb 19', uv: 1890, pv: 4800, amt: 2181},
-  {name: 'Feb 22', uv: 2390, pv: 3800, amt: 2500},
-  {name: 'Feb 25', uv: 3490, pv: 4300, amt: 2100},
+  {name: 'Jan 1', uv: 4000},
+  {name: 'Jan 17', uv: 3000},
+  {name: 'Jan 22', uv: 2000},
+  {name: 'Feb 7', uv: 2780},
+  {name: 'Feb 19', uv: 1890},
+  {name: 'Feb 22', uv: 2390},
+  {name: 'Feb 25', uv: 3490},
 ];
 
 
 
 const Status_data = {Account_Bal: 578, Monthly_exp: 732.3, Remain_bud: 81, Finance_stat: "BAD"}
 
-const Transaction_data = [
-  {
-    Date: "8/20/18", 
-    Time: "3:14 PM EST", 
-    Category: "Merchandise", 
-    Name: "Student Book Store", 
-    Amount: 145.65, 
-    Location: "330 E College Ave, State College, PA 16801", 
-    Payment_Method: "Card swiped"}, 
-  {
-    Date: "8/21/18", 
-    Time: "1:59 PM EST", 
-    Category: "Merchandise", 
-    Name: "Amazon", 
-    Amount: 20.67, 
-    Location: "amazon.com", 
-    Payment_Method: "Online"}, 
-  {
-    Date: "8/22/18", 
-    Time: "11:45 AM EST", 
-    Category: "Dining", 
-    Name: "Chick-fil-A", 
-    Amount: 11.75, 
-    Location: "1938 N Atherton St, State College, PA 16803", 
-    Payment_Method: "Card swiped"}, 
-  {
-    Date: "8/22/18", 
-    Time: "3:01 PM EST", 
-    Category: "Grocery", 
-    Name: "Wegmans", 
-    Amount: 105, 
-    Location: "345 Colonnade Blvd, State College, PA 16803", 
-    Payment_Method: "Chip"}, 
-  {
-    Date: "8/23/18", 
-    Time: "3:35 PM EST", 
-    Category: "Merchandise", 
-    Name: "Fine Wine & Good Spirits", 
-    Amount: 36.14, 
-    Location: "1682 N Atherton St, State College, PA 16803", 
-    Payment_Method: "Chip"}, 
-  {
-    Date: "8/23/18", 
-    Time: "3:57 PM EST", 
-    Category: "Gas/Automotive", 
-    Name: "Exxon", 
-    Amount: 25, 
-    Location: "315 W Aaron Dr, State College, PA 16801", 
-    Payment_Method: "Card swiped"}, 
-  {
-    Date: "8/24/18", 
-    Time: "12:30 AM EST", 
-    Category: "Dining", 
-    Name: "Cafe 210 West", 
-    Amount: 13, 
-    Location: "210 W College Ave, State College, PA 16801", 
-    Payment_Method: "Card swiped"}, 
-  {
-    Date: "8/24/18", 
-    Time: "1:35 AM EST", 
-    Category: "Travel", 
-    Name: "Uber Technologies", 
-    Amount: 7.35, 
-    Location: "Uber", 
-    Payment_Method: "Apple Pay"}, 
-  {
-    Date: "8/24/18", 
-    Time: "10:00 AM EST", 
-    Category: "Healthcare", 
-    Name: "CVS", 
-    Amount: 13.01, 
-    Location: "138 E Beaver Ave, State College, PA 16801", 
-    Payment_Method: "Chip"}, 
-  {
-    Date: "8/24/18", 
-    Time: "7:00 PM EST", 
-    Category: "Entertainment", 
-    Name: "The State Theatre", 
-    Amount: 10, 
-    Location: "130 W College Ave, State College, PA 16801", 
-    Payment_Method: "Chip"}, 
-  {
-    Date: "8/25/18", 
-    Time: "6:00 AM EST", 
-    Category: "Insurance", 
-    Name: "Renters Insurance", 
-    Amount: 30.74, 
-    Location: "progressive.com", 
-    Payment_Method: "Online"}
-  ]
 
 class Overview extends Component {
+
+  state = {}
+
+  componentWillMount(){
+    console.log('WillMount')
+    this._getData()
+  }
   
+  componentDidMount(){
+    console.log('DidMount')
+    console.log(this.state.Recent_trans)
+    
+  }
+  
+   _getData = async() =>{
+    const Data = await this._callApi()  // will wait until the callApi function is finished
+    const DataArray = Object.keys(Data).reverse().map(i => Data[i])
+    this.setState({
+      Recent_trans : DataArray
+    })
+  }
+  
+  _callApi = () => {
+    return fetch('http://localhost:5000/1/transactions?recent_transactions=true')
+    .then(response => response.json())
+    .then(json => json)
+    .catch(err => console.log(err))
+  }
+  __renderPages= () => {
+    return(
+      <div>
+        <div className="_content_title">
+        <h2>Financial Analysis</h2>
+        <p>23:14, Thursday, Jan 26, 2019</p>
+      </div>
+      <div className="_content_display">
+      {console.log(this.state.Recent_trans)}
+          <Graph_spending Trans_data={this.state.Recent_trans}/>
+          <Pie_spending />
+      </div>
+        <Status_card_list />
+        <Detail_contents Trans_data={this.state.Recent_trans}/>
+        </div>
+    );
+  }
   render() {
+    console.log('rendering now')
     return (
       <div className="_content">
-        <div className="_content_title">
-            <h2>Financial Analysis</h2>
-            <p>23:14, Thursday, Jan 26, 2019</p>
-        </div>
-         <div className="_content_display">
-              <Graph_spending />
-              <Pie_spending />
-        </div>
-            <Status_card_list />
-            <Detail_contents />
+      {this.state.Recent_trans ? this.__renderPages() : 'Loading'}
       </div>
     );
   }
 }
+
+
 
 class Graph_spending extends Component {
     render(){
         return(
             <div>
               <h3>Daily spending</h3>
-                  <LineChart width={500} height={250} data={Graph_data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-                      <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+              {console.log(this.props.Trans_data)}
+                  <LineChart width={700} height={250} data={this.props.Trans_data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+                      <Line type="monotone" dataKey="amount" stroke="#8884d8" />
                       <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-                      <XAxis dataKey="name"  />
-                      <YAxis />
+                      <XAxis dataKey="date"  />
+                      <YAxis dataKey="amount" />
                       <Tooltip />
                 </LineChart>
           </div>
@@ -234,7 +183,7 @@ class Detail_contents extends Component{
       <div className="Detail_box">
         <div className="Detail_info">
           <h3>Recent Transactions</h3>
-          <div className="Trans_info"><Trans_info initialRows = {Transaction_data}/></div>
+          <div className="Trans_info"><Trans_info Trans_data = {this.props.Trans_data}/></div>
           <NavLink to="/ACC_INFO">more...</NavLink>
           </div>
           
@@ -247,12 +196,12 @@ class Detail_contents extends Component{
   }
 }
 
-class Trans_info extends Component{
-  render(){
+function Trans_info (Trans_data){
+    
     return(
-    <Trans_table Row_count={6}/>
+    <Trans_table Row_count={10} Transaction_data = {Trans_data} />
     )
-  }
+  
 }
 
 class Advice_info extends Component{

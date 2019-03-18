@@ -13,23 +13,24 @@ const user_profile = [
 
 
 class App extends Component {
+
   render() {
     return (
       <div className="App">
-    <BrowserRouter>
-        <div>
-        <Header/>
-        <Switch>
-            <Route path="/" component={Overview} exact/>
-            <Route path="/OVERVIEW" component={Overview}/>
-            <Route path="/ACC_INFO" component={Acc_info}/>
-        </Switch>
-        </div>
-      </BrowserRouter>
-     
+        <BrowserRouter>
+          <div>
+          <Header/>
+          <Switch>
+              <Route path="/" component={Overview} exact/>
+              <Route path="/OVERVIEW" component={Overview}/>
+              <Route path="/ACC_INFO" component={Acc_info}/>
+          </Switch>
+          </div>
+        </BrowserRouter>
       </div>
-    );
-  }
+     );
+  
+}
 }
 
 export default App;

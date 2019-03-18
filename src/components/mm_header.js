@@ -57,7 +57,7 @@ class Header_logo extends Component {
       return (
         <div className= "_head_elements" id="head_info">
         
-          <img src="http://coolspotters.com/files/photos/90/steve-jobs-profile.png" alt="user_profile"></img>
+          <img src="https://www.aceshowbiz.com/images/photo/conan_o_brien.jpg" alt="user_profile"></img>
         </div>
       );
     }
