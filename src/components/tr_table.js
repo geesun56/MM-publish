@@ -19,8 +19,6 @@ const columns = [
   const rows = [{id: 0, title: 'row1', count: 20}, {id: 1, title: 'row1', count: 40}, {id: 2, title: 'row1', count: 60}];
   
 
-  
-
 
     const sortRows = (initialRows, sortColumn, sortDirection) => rows => {
         const comparer = (a, b) => {
@@ -37,10 +35,10 @@ const columns = [
   class Trans_table extends Component {
     
     render(){
-      {console.log(this.props.Transaction_data.Trans_data[0])}
+      {console.log(this.props.Transaction_data)}
       return (<ReactDataGrid
       columns={columns}
-      rowGetter={i => this.props.Transaction_data.Trans_data[i]}
+      rowGetter={i => this.props.Transaction_data[i]}
       resizeable = {true}
       rowsCount= {this.props.Row_count}
       minHeight={250} />);

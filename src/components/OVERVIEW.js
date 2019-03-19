@@ -6,19 +6,12 @@ import Trans_table from "./tr_table"
 import {NavLink} from "react-router-dom";
 import Pie_spending from "./pie"
 
+const base_addr = 'http://localhost:5000/'
+const user = '1/'
 
-const Graph_data = [
-  {name: 'Jan 1', uv: 4000},
-  {name: 'Jan 17', uv: 3000},
-  {name: 'Jan 22', uv: 2000},
-  {name: 'Feb 7', uv: 2780},
-  {name: 'Feb 19', uv: 1890},
-  {name: 'Feb 22', uv: 2390},
-  {name: 'Feb 25', uv: 3490},
-];
-
-
-
+const RECENT_API = base_addr+user+'transactions?recent_transactions=true'
+const WHOLE_API = base_addr+user+'transactions'
+const RATIO_API =base_addr+user+'categoryRatio'
 const Status_data = {Account_Bal: 578, Monthly_exp: 732.3, Remain_bud: 81, Finance_stat: "BAD"}
 
 
@@ -27,30 +20,36 @@ class Overview extends Component {
   state = {}
 
   componentWillMount(){
-    console.log('WillMount')
     this._getData()
   }
   
-  componentDidMount(){
-    console.log('DidMount')
-    console.log(this.state.Recent_trans)
-    
-  }
-  
    _getData = async() =>{
-    const Data = await this._callApi()  // will wait until the callApi function is finished
-    const DataArray = Object.keys(Data).reverse().map(i => Data[i])
+    const Recent_Data = await this._callApi(RECENT_API)  // will wait until the callApi function is finished
+    const Whole_Data = await this._callApi(WHOLE_API)  // will wait until the callApi function is finished
+    const Ratio_Data = await this._callApi(RATIO_API)  // will wait until the callApi function is finished
+    
+    const DataArray1 = Object.keys(Recent_Data).reverse().map(i => Recent_Data[i])
+    const DataArray2 = Object.keys(Whole_Data).map(i => Whole_Data[i])
+    
+    console.log(Recent_Data)
+    console.log(Whole_Data)
+    console.log(Ratio_Data)
+    
     this.setState({
-      Recent_trans : DataArray
+      Recent_trans : DataArray1,
+      Graph_data: DataArray2,
+      Pie_data : Ratio_Data
     })
   }
   
-  _callApi = () => {
-    return fetch('http://localhost:5000/1/transactions?recent_transactions=true')
+  _callApi = (API) => {
+    return fetch(API)
     .then(response => response.json())
     .then(json => json)
     .catch(err => console.log(err))
   }
+
+  
   __renderPages= () => {
     return(
       <div>
@@ -59,15 +58,16 @@ class Overview extends Component {
         <p>23:14, Thursday, Jan 26, 2019</p>
       </div>
       <div className="_content_display">
-      {console.log(this.state.Recent_trans)}
-          <Graph_spending Trans_data={this.state.Recent_trans}/>
-          <Pie_spending />
+      {console.log(this.state)}
+          <Graph_spending data={this.state.Graph_data}/>
+          <Pie_spending data = {this.state.Pie_data}/>
       </div>
         <Status_card_list />
-        <Detail_contents Trans_data={this.state.Recent_trans}/>
+        <Detail_contents data={this.state.Recent_trans}/>
         </div>
     );
   }
+
   render() {
     console.log('rendering now')
     return (
@@ -85,8 +85,8 @@ class Graph_spending extends Component {
         return(
             <div>
               <h3>Daily spending</h3>
-              {console.log(this.props.Trans_data)}
-                  <LineChart width={700} height={250} data={this.props.Trans_data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+              {console.log(this.props.data)}
+                  <LineChart width={480} height={250} data={this.props.data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
                       <Line type="monotone" dataKey="amount" stroke="#8884d8" />
                       <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
                       <XAxis dataKey="date"  />
@@ -183,7 +183,7 @@ class Detail_contents extends Component{
       <div className="Detail_box">
         <div className="Detail_info">
           <h3>Recent Transactions</h3>
-          <div className="Trans_info"><Trans_info Trans_data = {this.props.Trans_data}/></div>
+          <div className="Trans_info"><Trans_table Row_count={10} Transaction_data = {this.props.data} /></div>
           <NavLink to="/ACC_INFO">more...</NavLink>
           </div>
           
@@ -196,13 +196,7 @@ class Detail_contents extends Component{
   }
 }
 
-function Trans_info (Trans_data){
-    
-    return(
-    <Trans_table Row_count={10} Transaction_data = {Trans_data} />
-    )
-  
-}
+
 
 class Advice_info extends Component{
   render(){
