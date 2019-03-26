@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
-import './OVERVIEW.css';
+import './overview.css';
 
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'; /* chart library from http://recharts.org/en-US/guide/getting-started */
 import Trans_table from "./tr_table"
 import {NavLink} from "react-router-dom";
-import Pie_spending from "./pie"
+import Pie from "./pie"
+import Graph from "./graph"
+import PieChart from "../plugin/views/pie & funnel charts/Pie Chart"
+import LineChart from "../plugin/views/line charts/Line Chart"
 
+/* ---- API request address ---- */
 const base_addr = 'http://localhost:5000/'
 const user = '1/'
-
 const RECENT_API = base_addr+user+'transactions?recent_transactions=true'
 const WHOLE_API = base_addr+user+'transactions'
 const RATIO_API =base_addr+user+'categoryRatio'
+const TIME_API = base_addr+'currentTime'
+
 const Status_data = {Account_Bal: 578, Monthly_exp: 732.3, Remain_bud: 81, Finance_stat: "BAD"}
+
 
 
 class Overview extends Component {
@@ -27,6 +32,7 @@ class Overview extends Component {
     const Recent_Data = await this._callApi(RECENT_API)  // will wait until the callApi function is finished
     const Whole_Data = await this._callApi(WHOLE_API)  // will wait until the callApi function is finished
     const Ratio_Data = await this._callApi(RATIO_API)  // will wait until the callApi function is finished
+    const Current_Time = await this._callApi(TIME_API)  // will wait until the callApi function is finished
     
     const DataArray1 = Object.keys(Recent_Data).reverse().map(i => Recent_Data[i])
     const DataArray2 = Object.keys(Whole_Data).map(i => Whole_Data[i])
@@ -35,10 +41,13 @@ class Overview extends Component {
     console.log(Whole_Data)
     console.log(Ratio_Data)
     
+    const _Graph_data = this.gen_graphdata(DataArray2)
+    
     this.setState({
       Recent_trans : DataArray1,
-      Graph_data: DataArray2,
-      Pie_data : Ratio_Data
+      Graph_data: _Graph_data,
+      Pie_data : Ratio_Data,
+      Time : Current_Time
     })
   }
   
@@ -49,22 +58,56 @@ class Overview extends Component {
     .catch(err => console.log(err))
   }
 
-  
+  gen_graphdata = (input_data) => {
+    const Graphdata=[];
+
+    var buf_date = input_data[0].date
+    var buf_amount = 0
+    var data_len = input_data.length
+    var i = 1
+
+    input_data.map(element => {
+      if(buf_date == element.date){
+        buf_amount = buf_amount + element.amount
+      }else{
+        var a = buf_date.split("-")
+        var d = new Date(Number(a[0]), Number(a[1])-1, Number(a[2]))
+        console.log(d)
+        const ele = {x: d, y: buf_amount}
+        Graphdata.push(ele)
+        buf_date = element.date
+        buf_amount = element.amount
+      }
+      if(i==data_len){
+        var a = buf_date.split("-")
+        var d = new Date(Number(a[0]), Number(a[1])-1, Number(a[2]))
+        console.log(d)
+        const ele = {x: d, y: buf_amount}
+        Graphdata.push(ele)
+      }
+      i++
+    });
+    
+    return Graphdata
+  }
+
   __renderPages= () => {
+    
     return(
       <div>
-        <div className="_content_title">
-        <h2>Financial Analysis</h2>
-        <p>23:14, Thursday, Jan 26, 2019</p>
+            <div className="_content_title">
+                <h1>Financial Analysis</h1>
+                <p>{this.state.Time}</p>
+            </div>
+
+            <div className="_content_display"> 
+                <div className="_LineChart"><LineChart data={this.state.Graph_data}/></div>
+                <div className="_PieChart"><PieChart data = {this.state.Pie_data}/></div>    
+            </div>
+
+              <Status_card_list />
+              <Detail_contents data={this.state.Recent_trans}/>
       </div>
-      <div className="_content_display">
-      {console.log(this.state)}
-          <Graph_spending data={this.state.Graph_data}/>
-          <Pie_spending data = {this.state.Pie_data}/>
-      </div>
-        <Status_card_list />
-        <Detail_contents data={this.state.Recent_trans}/>
-        </div>
     );
   }
 
@@ -80,23 +123,7 @@ class Overview extends Component {
 
 
 
-class Graph_spending extends Component {
-    render(){
-        return(
-            <div>
-              <h3>Daily spending</h3>
-              {console.log(this.props.data)}
-                  <LineChart width={480} height={250} data={this.props.data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-                      <Line type="monotone" dataKey="amount" stroke="#8884d8" />
-                      <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-                      <XAxis dataKey="date"  />
-                      <YAxis dataKey="amount" />
-                      <Tooltip />
-                </LineChart>
-          </div>
-        )
-    }
-}
+
 
 
 

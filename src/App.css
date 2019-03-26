@@ -1,6 +1,5 @@
 .App *{
   display: block;
-  background-color: white;
 }
 
 .App{
@@ -8,6 +7,6 @@
   width: 100vw;
   height: auto;
   padding-bottom: 5vh;
-  background-color: #F4F4F6;
+  background-color: rgb(248, 255, 255);
 }
 

@@ -3,7 +3,7 @@ import './pie.css';
 import PieChart from 'react-minimal-pie-chart'; /* piechart library from https://www.npmjs.com/package/react-minimal-pie-chart */
 
 
-class Pie_spending extends Component {
+class Pie extends Component {
     render(){
         return(
             <div className="_content_pie">
@@ -37,4 +37,4 @@ Housing: 21
 Insurance: 15
 Transportation: 10*/ 
 
-export default Pie_spending
+export default Pie

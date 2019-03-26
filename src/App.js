@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import Header from "./components/mm_header"
-import Overview from "./components/OVERVIEW"
+import Header from "./components/header"
+import Overview from "./components/overview"
 import Table_sample from "./components/tr_table"
 import {BrowserRouter, Route, Switch } from "react-router-dom";
-import Acc_info from "./components/ACC_INFO"
+import Account_info from "./components/account_info"
 const user_profile = [
   "Geesun Jang"
 ];
@@ -23,7 +23,7 @@ class App extends Component {
           <Switch>
               <Route path="/" component={Overview} exact/>
               <Route path="/OVERVIEW" component={Overview}/>
-              <Route path="/ACC_INFO" component={Acc_info}/>
+              <Route path="/ACC_INFO" component={Account_info}/>
           </Switch>
           </div>
         </BrowserRouter>

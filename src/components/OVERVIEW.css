@@ -1,27 +1,31 @@
 ._content{
     display: block;
-    border : 1px solid black;
+    border : 1px solid white;
     height : 90vh; 
     width : 94vw;
     height: auto;
     margin: 5vh 3vw 0vh 3vw;
     padding: 0;
     overflow: hidden;
+    background-color: white;
 }
 
 ._content_title{
-    width: 100%;
+    width: auto;
     height: 100%;
-    margin: 0 0 0 0;
-    
+    margin: 0;
+    padding: 2vh 1vw 2vh 1vw;
     overflow: hidden;
 }
 ._content h2{
     margin: 0;
+    margin-left: 1vw;
     float: left;
 }
 ._content p{
-    margin-top: 40px;
+    
+    margin: 1vh 2vw 3vh 0;
+    
     float: right;
 }
 
@@ -30,13 +34,30 @@
     padding:0;
     display:block;
     width:100%;
-    height: 310px;
+    height: auto;
     text-align: center;
 }
 ._content_display div{
     display: inline-block;
     float: left;
-    margin:0 7% 0% 10%;
+    padding: 0;
+    
+}
+
+._LineChart{
+    height: auto;
+    width: 50%;
+    margin: 0 8% 0 7%;
+}
+
+._PieChart{
+    height: auto;
+    width: 35%;
+    margin: 0 0% 0 0%;
+}
+._LineChart div{
+    
+    width: 100%;
 }
 
 .card_list{

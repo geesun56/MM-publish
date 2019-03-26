@@ -1,10 +1,10 @@
 ._head{
     display: block;
-    border : 1px solid black;
+    border : 1px solid white;
     height : 7vh; 
     width : 100vw;
     margin: 0;
-    
+    background-color: white;
     overflow: hidden;
 }
 
@@ -39,7 +39,7 @@
 
 #head_menu {
     border:0;
-    border:1px solid #ccc;
+    border:1px solid white;
     border-width:1px 0;
     list-style:none;
     margin:0;

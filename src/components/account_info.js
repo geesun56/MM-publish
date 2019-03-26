@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './ACC_INFO.css';
+import './account_info.css';
 import Trans_table from './tr_table'
 import Pie_spending from "./pie"
 import Info_box from "./Info_box"
@@ -11,7 +11,7 @@ const user = '1/'
 const WHOLE_API = base_addr+user+'transactions'
 const RATIO_API =base_addr+user+'categoryRatio'
 
-class Acc_info extends Component {
+class Account_info extends Component {
     state = {}
 
   componentWillMount(){
@@ -70,4 +70,4 @@ class Acc_info extends Component {
 
   
   
-  export default Acc_info;
+  export default Account_info;
