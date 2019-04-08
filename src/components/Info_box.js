@@ -13,6 +13,7 @@ class Info_box extends Component {
     render(){
         return(
             <div className="_info_box">
+            <h2>Customer information</h2>
                 <ul>
                     <li>Balance $ {info_box_data.Balance}</li>
                     <li>Minimum payment $ {info_box_data.Min_payment}</li>

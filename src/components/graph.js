@@ -7,6 +7,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
 
 class Graph extends Component {
     render(){
+        
         return(
             <div>
               <h3>Monthly spending</h3>

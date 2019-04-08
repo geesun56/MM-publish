@@ -9,7 +9,7 @@ class LineChart extends Component {
 		const options = {
 			animationEnabled: true,
 			exportEnabled: true,
-			animationDuration: 1500,
+			animationDuration: 1200,
 			theme: "light2", // "light1", "dark1", "dark2"
 			title:{
 				text: "Monthly Expenditure Statistics",

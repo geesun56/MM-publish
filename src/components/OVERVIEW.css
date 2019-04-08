@@ -1,7 +1,8 @@
 ._content{
     display: block;
     border : 1px solid white;
-    height : 90vh; 
+    box-shadow: 0 0 8px rgb(200,200,200);
+    height : auto; 
     width : 94vw;
     height: auto;
     margin: 5vh 3vw 0vh 3vw;
@@ -34,35 +35,16 @@
     padding:0;
     display:block;
     width:100%;
-    height: auto;
+    height: 400px;
     text-align: center;
-}
-._content_display div{
-    display: inline-block;
-    float: left;
-    padding: 0;
-    
+    float: none;
 }
 
-._LineChart{
-    height: auto;
-    width: 50%;
-    margin: 0 8% 0 7%;
-}
-
-._PieChart{
-    height: auto;
-    width: 35%;
-    margin: 0 0% 0 0%;
-}
-._LineChart div{
-    
-    width: 100%;
-}
 
 .card_list{
     width:100%;
     height: auto;
+    display: block;
     text-align: center;
 }
 
@@ -127,3 +109,14 @@
     overflow:hidden;
 }
 
+._pie{
+    height: 100%;
+    width: 50%;
+    float: left;
+}
+
+._line{
+    height: 100%;
+    width: 50%;
+    float: left;
+}

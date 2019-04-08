@@ -31,7 +31,7 @@ class ColumnLineAreaChart extends Component {
 			animationEnabled: true,
 			colorSet: "colorSet2",
 			title: {
-				text: "Monthly Sales"
+				text: "Monthly expenditure statistics"
 			},
 			axisX: {
 				valueFormatString: "MMMM"
@@ -50,7 +50,7 @@ class ColumnLineAreaChart extends Component {
 			},
 			data: [{
 				type: "column",
-				name: "Actual Sales",
+				name: "Daily expenditure",
 				showInLegend: true,
 				xValueFormatString: "MMMM YYYY",
 				yValueFormatString: "$#,##0",
@@ -70,7 +70,7 @@ class ColumnLineAreaChart extends Component {
 				]
 			},{
 				type: "line",
-				name: "Expected Sales",
+				name: "Suggested budget",
 				showInLegend: true,
 				yValueFormatString: "$#,##0",
 				dataPoints: [
@@ -89,7 +89,7 @@ class ColumnLineAreaChart extends Component {
 				]
 			},{
 				type: "area",
-				name: "Profit",
+				name: "Remaining budget",
 				markerBorderColor: "white",
 				markerBorderThickness: 2,
 				showInLegend: true,
@@ -113,7 +113,6 @@ class ColumnLineAreaChart extends Component {
 		
 		return (
 		<div>
-			<h1>Combination of React Column, Line & Area Charts</h1>
 			<CanvasJSChart options = {options} 
 				onRef={ref => this.chart = ref}
 			/>

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import './overview.css';
 
-import Trans_table from "./tr_table"
 import {NavLink} from "react-router-dom";
-import Pie from "./pie"
-import Graph from "./graph"
+import Table from "./table"
 import PieChart from "../plugin/views/pie & funnel charts/Pie Chart"
 import LineChart from "../plugin/views/line charts/Line Chart"
+
 
 /* ---- API request address ---- */
 const base_addr = 'http://localhost:5000/'
@@ -17,6 +16,21 @@ const RATIO_API =base_addr+user+'categoryRatio'
 const TIME_API = base_addr+'currentTime'
 
 const Status_data = {Account_Bal: 578, Monthly_exp: 732.3, Remain_bud: 81, Finance_stat: "BAD"}
+
+const column_overview = [{   //for Table component
+  Header: 'Date',
+  accessor: d => d.date, 
+  id: 'date'
+}, {
+  Header: 'Time',
+  accessor: 'time',
+}, {
+  Header: 'Amount',
+  accessor: 'amount',
+},{
+  Header: 'Company',
+  accessor: 'company',
+}]
 
 
 
@@ -29,18 +43,28 @@ class Overview extends Component {
   }
   
    _getData = async() =>{
-    const Recent_Data = await this._callApi(RECENT_API)  // will wait until the callApi function is finished
-    const Whole_Data = await this._callApi(WHOLE_API)  // will wait until the callApi function is finished
-    const Ratio_Data = await this._callApi(RATIO_API)  // will wait until the callApi function is finished
-    const Current_Time = await this._callApi(TIME_API)  // will wait until the callApi function is finished
+    const Recent_Data_api = await this._callApi(RECENT_API)  // will wait until the callApi function is finished
+    const Whole_Data_api = await this._callApi(WHOLE_API)  // will wait until the callApi function is finished
+    const Ratio_Data_api = await this._callApi(RATIO_API)  // will wait until the callApi function is finished
+    const Current_Time_api = await this._callApi(TIME_API)  // will wait until the callApi function is finished
+    
+    const Recent_Data =Recent_Data_api.data.transactions
+    const Whole_Data = Whole_Data_api.data.transactions
+    const Ratio_Data = Ratio_Data_api.data.ratio
+    const Current_Time = Current_Time_api
     
     const DataArray1 = Object.keys(Recent_Data).reverse().map(i => Recent_Data[i])
     const DataArray2 = Object.keys(Whole_Data).map(i => Whole_Data[i])
     
-    console.log(Recent_Data)
+    
+
+    /*console.log(Recent_Data)
     console.log(Whole_Data)
     console.log(Ratio_Data)
-    
+    console.log(Current_Time)
+    console.log(DataArray1)
+    console.log(DataArray2)*/
+
     const _Graph_data = this.gen_graphdata(DataArray2)
     
     this.setState({
@@ -72,7 +96,6 @@ class Overview extends Component {
       }else{
         var a = buf_date.split("-")
         var d = new Date(Number(a[0]), Number(a[1])-1, Number(a[2]))
-        console.log(d)
         const ele = {x: d, y: buf_amount}
         Graphdata.push(ele)
         buf_date = element.date
@@ -92,7 +115,8 @@ class Overview extends Component {
   }
 
   __renderPages= () => {
-    
+                //<div className="_LineChart"></div>
+                //<div className="_PieChart"></div> 
     return(
       <div>
             <div className="_content_title">
@@ -101,8 +125,8 @@ class Overview extends Component {
             </div>
 
             <div className="_content_display"> 
-                <div className="_LineChart"><LineChart data={this.state.Graph_data}/></div>
-                <div className="_PieChart"><PieChart data = {this.state.Pie_data}/></div>    
+                <div class="_line"><LineChart data={this.state.Graph_data}/></div>
+                <div class="_pie"><PieChart data = {this.state.Pie_data}/></div>
             </div>
 
               <Status_card_list />
@@ -115,7 +139,7 @@ class Overview extends Component {
     console.log('rendering now')
     return (
       <div className="_content">
-      {this.state.Recent_trans ? this.__renderPages() : 'Loading'}
+      {this.state.Recent_trans && this.state.Graph_data && this.state.Pie_data && this.state.Time? this.__renderPages() : 'Loading'}
       </div>
     );
   }
@@ -204,13 +228,16 @@ class _Finance_stat extends Component{
   }
 }
 
+
+
 class Detail_contents extends Component{
   render(){
+    
     return(
       <div className="Detail_box">
         <div className="Detail_info">
           <h3>Recent Transactions</h3>
-          <div className="Trans_info"><Trans_table Row_count={10} Transaction_data = {this.props.data} /></div>
+          <div className="Trans_info"><Table data = {this.props.data} columns = {column_overview} type='overview'/></div>
           <NavLink to="/ACC_INFO">more...</NavLink>
           </div>
           

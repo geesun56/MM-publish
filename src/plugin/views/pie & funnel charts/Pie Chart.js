@@ -8,7 +8,7 @@ class PieChart extends Component {
 		const options = {
 			exportEnabled: true,
 			animationEnabled: true,
-			animationDuration: 1500,
+			animationDuration: 800,
 			title: {
 				text: "Monthly Expenditure Ratio",
 				margin: 20,

@@ -1,15 +1,31 @@
 ._info_box{
     text-align: left;
-    display: inline-block;
-    float: left;
-    height: auto;
-    width: 30%;
-    border: 1px solid black;
-    margin: 4% 4% 4% 4%;
-    margin-left: 15vw;
+    display: block;
+    height: 100%;
+    width: 80%;
+    border : 1px solid white;
+    box-shadow: 0 0 8px rgb(200,200,200);
     padding: 0;
+    margin: 0 10% 0 10%;
 }
 
 ._info_box ul li{
-    margin-top: 4%;
+    margin-top: 10%;
+    float:none;
+    height: auto;
 }
+._info_box ul{
+    margin: 10% 15% 0 15%;
+    height: auto;
+    padding: 0;
+    width: 70%;
+}
+
+._info_box h2{
+    display: block;
+    float: none;
+    margin: 3% 15% 0 15%;
+    width: 70%;
+    text-align: center;
+}
+
