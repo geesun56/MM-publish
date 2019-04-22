@@ -41,67 +41,34 @@
 }
 
 
-.card_list{
-    width:100%;
-    height: auto;
-    display: block;
-    text-align: center;
-}
-
-.card{
-    display: inline-block;
-    border: 2px solid black;
-    width: 13%;
-    height: 100%;
-    padding: 1% 3% 1% 4.5%;
-    margin: 2% 1%;
-    text-align:center;
-    
-}
-
-.card ul{
-   
-  float:left;
-  padding-left: 0;
-  margin: 4% 7% 4% 0;
-  height: 100%;
-}
-
-.card li{
-    font-size: 0.9vw;
-    text-align: left;
-  }
-
-.card img{
-    
-    float:left;
-    height: 100%;
-    width: 20%;
-    
-}
-.card_content{
-    width:100%;
-    height: 100%;
-    text-align: center;
-}
-
 .Detail_box{
     
     width: 100%;
-    height: auto;
-    text-align: center;
+    height: 500px;
+    display: block;
      
 }
 
-.Detail_info{
+.Detail_table{
     text-align: left;
     display: inline-block;
     float: left;
-    height: 10%;
-    width: 44.4%;
-    border: 1px solid black;
-    margin: 0 1% 2% 1%;
-    padding: 1% 1% 1% 1%;
+    height: 100%;
+    width: 47%;
+    border: 0px solid black;
+    margin: 0 3% 6% 6%;
+    padding: 0;
+}
+
+.Detail_desc{
+    text-align: left;
+    display: inline-block;
+    float: left;
+    height: 100%;
+    width: 41%;
+    border: 0px solid black;
+    margin: 0 0% 0 3%;
+    padding: 0;
 }
 
 .Trans_info{
@@ -119,4 +86,11 @@
     height: 100%;
     width: 50%;
     float: left;
+}
+
+
+
+.status_box{
+    width : 100%;
+    height: auto;
 }

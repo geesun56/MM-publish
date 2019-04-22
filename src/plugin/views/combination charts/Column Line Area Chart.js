@@ -27,11 +27,12 @@ class ColumnLineAreaChart extends Component {
 		this.chart.render();
 	}
 	render() {
+		console.log()
 		const options = {
 			animationEnabled: true,
 			colorSet: "colorSet2",
 			title: {
-				text: "Monthly expenditure statistics"
+				text: "Annual Expenditure Statistics"
 			},
 			axisX: {
 				valueFormatString: "MMMM"
@@ -50,42 +51,42 @@ class ColumnLineAreaChart extends Component {
 			},
 			data: [{
 				type: "column",
-				name: "Daily expenditure",
+				name: "Monthly expenditure",
 				showInLegend: true,
 				xValueFormatString: "MMMM YYYY",
 				yValueFormatString: "$#,##0",
 				dataPoints: [
-					{ x: new Date(2017, 0), y: 27500 },
-					{ x: new Date(2017, 1), y: 29000 },
-					{ x: new Date(2017, 2), y: 22000 },
-					{ x: new Date(2017, 3), y: 26500 },
-					{ x: new Date(2017, 4), y: 33000 },
-					{ x: new Date(2017, 5), y: 37000 },
-					{ x: new Date(2017, 6), y: 32000 },
-					{ x: new Date(2017, 7), y: 27500 },
-					{ x: new Date(2017, 8), y: 29500 },
-					{ x: new Date(2017, 9), y: 43000 },
-					{ x: new Date(2017, 10), y: 55000, indexLabel: "High Renewals" },
-					{ x: new Date(2017, 11), y: 39500 }
+					{ x: new Date(2018, 0), y: this.props.pred[1].current_balance },
+					{ x: new Date(2018, 1), y: this.props.pred[2].current_balance },
+					{ x: new Date(2018, 2), y: this.props.pred[3].current_balance },
+					{ x: new Date(2018, 3), y: this.props.pred[4].current_balance },
+					{ x: new Date(2018, 4), y: this.props.pred[5].current_balance },
+					{ x: new Date(2018, 5), y: this.props.pred[6].current_balance },
+					{ x: new Date(2018, 6), y: this.props.pred[7].current_balance },
+					{ x: new Date(2018, 7), y: this.props.pred[8].current_balance },
+					{ x: new Date(2018, 8), y: this.props.pred[9].current_balance },
+					{ x: new Date(2018, 9), y: this.props.pred[10].current_balance },
+					{ x: new Date(2018, 10), y: this.props.pred[11].current_balance },
+					{ x: new Date(2018, 11), y: this.props.pred[12].current_balance }
 				]
 			},{
 				type: "line",
-				name: "Suggested budget",
+				name: "Suggested expenditure",
 				showInLegend: true,
 				yValueFormatString: "$#,##0",
 				dataPoints: [
-					{ x: new Date(2017, 0), y: 38000 },
-					{ x: new Date(2017, 1), y: 39000 },
-					{ x: new Date(2017, 2), y: 35000 },
-					{ x: new Date(2017, 3), y: 37000 },
-					{ x: new Date(2017, 4), y: 42000 },
-					{ x: new Date(2017, 5), y: 48000 },
-					{ x: new Date(2017, 6), y: 41000 },
-					{ x: new Date(2017, 7), y: 38000 },
-					{ x: new Date(2017, 8), y: 42000 },
-					{ x: new Date(2017, 9), y: 45000 },
-					{ x: new Date(2017, 10), y: 48000 },
-					{ x: new Date(2017, 11), y: 47000 }
+					{ x: new Date(2018, 0), y: this.props.pred[1].predicted_val },
+					{ x: new Date(2018, 1), y: this.props.pred[2].predicted_val },
+					{ x: new Date(2018, 2), y: this.props.pred[3].predicted_val },
+					{ x: new Date(2018, 3), y: this.props.pred[4].predicted_val },
+					{ x: new Date(2018, 4), y: this.props.pred[5].predicted_val },
+					{ x: new Date(2018, 5), y: this.props.pred[6].predicted_val },
+					{ x: new Date(2018, 6), y: this.props.pred[7].predicted_val },
+					{ x: new Date(2018, 7), y: this.props.pred[8].predicted_val },
+					{ x: new Date(2018, 8), y: this.props.pred[9].predicted_val },
+					{ x: new Date(2018, 9), y: this.props.pred[10].predicted_val },
+					{ x: new Date(2018, 10), y: this.props.pred[11].predicted_val },
+					{ x: new Date(2018, 11), y: this.props.pred[12].predicted_val }
 				]
 			},{
 				type: "area",
@@ -95,18 +96,18 @@ class ColumnLineAreaChart extends Component {
 				showInLegend: true,
 				yValueFormatString: "$#,##0",
 				dataPoints: [
-					{ x: new Date(2017, 0), y: 11500 },
-					{ x: new Date(2017, 1), y: 10500 },
-					{ x: new Date(2017, 2), y: 9000 },
-					{ x: new Date(2017, 3), y: 13500 },
-					{ x: new Date(2017, 4), y: 13890 },
-					{ x: new Date(2017, 5), y: 18500 },
-					{ x: new Date(2017, 6), y: 16000 },
-					{ x: new Date(2017, 7), y: 14500 },
-					{ x: new Date(2017, 8), y: 15880 },
-					{ x: new Date(2017, 9), y: 24000 },
-					{ x: new Date(2017, 10), y: 31000 },
-					{ x: new Date(2017, 11), y: 19000 }
+					{ x: new Date(2018, 0), y: this.props.pred[1].predicted_val- this.props.pred[1].current_balance+1000 },
+					{ x: new Date(2018, 1), y: this.props.pred[2].predicted_val- this.props.pred[2].current_balance+100 },
+					{ x: new Date(2018, 2), y: this.props.pred[3].predicted_val- this.props.pred[3].current_balance+1000 },
+					{ x: new Date(2018, 3), y: this.props.pred[4].predicted_val- this.props.pred[4].current_balance+500 },
+					{ x: new Date(2018, 4), y: this.props.pred[5].predicted_val- this.props.pred[5].current_balance+300 },
+					{ x: new Date(2018, 5), y: this.props.pred[6].predicted_val- this.props.pred[6].current_balance+1000 },
+					{ x: new Date(2018, 6), y: this.props.pred[7].predicted_val- this.props.pred[7].current_balance+1000 },
+					{ x: new Date(2018, 7), y: this.props.pred[8].predicted_val- this.props.pred[8].current_balance+200 },
+					{ x: new Date(2018, 8), y: this.props.pred[9].predicted_val- this.props.pred[9].current_balance+100 },
+					{ x: new Date(2018, 9), y: this.props.pred[10].predicted_val-this.props.pred[10].current_balance+1000 },
+					{ x: new Date(2018, 10), y: this.props.pred[11].predicted_val-this.props.pred[11].current_balance+1000 },
+					{ x: new Date(2018, 11), y: this.props.pred[12].predicted_val-this.props.pred[12].current_balance+1000 }
 				]
 			}]
 		}

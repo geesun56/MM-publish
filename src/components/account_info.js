@@ -7,7 +7,8 @@ import ColumnLineAreaChart from '../plugin/views/combination charts/Column Line 
 const base_addr = 'http://localhost:5000/'
 const user = '1/'
 const WHOLE_API = base_addr+user+'transactions'
-const RATIO_API =base_addr+user+'categoryRatio'
+const ML_API = base_addr+user+'prediction'
+const MONTH_TRANS_API = base_addr+user+'trans'
 
 const column_account = [{   //for Table component
   Header: 'Date',
@@ -17,7 +18,7 @@ const column_account = [{   //for Table component
   Header: 'Time',
   accessor: 'time',
 }, {
-  Header: 'Amount',
+  Header: 'Amount ($)',
   accessor: 'amount',
 },{
   Header: 'Company',
@@ -39,14 +40,16 @@ class Account_info extends Component {
   
    _getData = async() =>{
     const Whole_Data_api = await this._callApi(WHOLE_API)  // will wait until the callApi function is finished
-    const Ratio_Data = await this._callApi(RATIO_API)  // will wait until the callApi function is finished
+    const ML_Data_api = await this._callApi(ML_API)  // will wait until the callApi function is finished
     
     const Whole_Data = Whole_Data_api.data.transactions
     const DataArray = Object.keys(Whole_Data).reverse().map(i => Whole_Data[i])
+    console.log(ML_Data_api.data)
     
+
     this.setState({
       Graph_data: DataArray,
-      Pie_data : Ratio_Data
+      ML_data : ML_Data_api.data
     })
   }
   
@@ -60,18 +63,17 @@ class Account_info extends Component {
   
   __renderPages= () => {
     
-    console.log(this.state.Pie_data)
     return(
         <div className="content">
         <div className="_content_title">
             <h1>Account Information</h1>
-            <p>23:14, Thursday, Jan 26, 2019</p>
+            <p>23:14, Thursday, Dec 31, 2018</p>
         </div>
         <div className="_content_display2">
             <div class="_info"><Info_box/></div>
-            <div class="_line_area"><ColumnLineAreaChart data = {this.state.Pie_data}/></div>
+            <div class="_line_area"><ColumnLineAreaChart pred={this.state.ML_data}/></div>
         </div>
-            <h3>Transactions</h3>
+            <h3>Transactions of this Month</h3>
             <div className="big_table">
             <Table data = {this.state.Graph_data} columns={column_account} type='account'/>
            </div>
@@ -80,10 +82,10 @@ class Account_info extends Component {
   }
 
   render() {
-    //<Pie data = {this.state.Pie_data}/>
+    
     return (
       <div className="_content">
-      {(this.state.Graph_data && this.state.Pie_data) ? this.__renderPages() : 'Loading'}
+      {(this.state.Graph_data && this.state.ML_data) ? this.__renderPages() : 'Loading'}
       </div>
     );
   }

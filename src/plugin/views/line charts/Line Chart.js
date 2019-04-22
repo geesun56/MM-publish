@@ -12,7 +12,7 @@ class LineChart extends Component {
 			animationDuration: 1200,
 			theme: "light2", // "light1", "dark1", "dark2"
 			title:{
-				text: "Monthly Expenditure Statistics",
+				text: "Daily Expenditure Statistics",
 				margin: 20,
 				fontFamily: "Verdana",	
 				horizontalAlign: "center",
@@ -33,7 +33,7 @@ class LineChart extends Component {
 			},
 			toolTip:{
 				enabled: true,    
-				content: "{x} : {y} $",   
+				content: "{x} : $ {y}",   
 				animationEnabled: true 
 			},
 			data: [{

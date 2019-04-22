@@ -1,3 +1,16 @@
 .rt-td{
     text-align: center;
 }
+
+.overview_table{
+    width: 100%;
+}
+.account_table{
+    width: 100%;
+}
+
+#table_head{
+        text-align: left;
+        margin: 3% 0 4% 0;
+    
+}
