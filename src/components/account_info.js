@@ -3,7 +3,7 @@ import './account_info.css';
 import Table from './table'
 import Info_box from "./Info_box"
 import ColumnLineAreaChart from '../plugin/views/combination charts/Column Line Area Chart';
-
+import Loading from './loading'
 const base_addr = 'http://localhost:5000/'
 const user = '1/'
 const WHOLE_API = base_addr+user+'transactions'
@@ -45,11 +45,12 @@ class Account_info extends Component {
     const Whole_Data = Whole_Data_api.data.transactions
     const DataArray = Object.keys(Whole_Data).reverse().map(i => Whole_Data[i])
     console.log(ML_Data_api.data)
+    const balance = Math.round(ML_Data_api.data[12].current_balance*10)/10
     
-
     this.setState({
       Graph_data: DataArray,
-      ML_data : ML_Data_api.data
+      ML_data : ML_Data_api.data,
+      bal : balance
     })
   }
   
@@ -62,7 +63,8 @@ class Account_info extends Component {
 
   
   __renderPages= () => {
-    
+    console.log("MM_data test")
+    console.log(this.state.bal)
     return(
         <div className="content">
         <div className="_content_title">
@@ -70,7 +72,7 @@ class Account_info extends Component {
             <p>23:14, Thursday, Dec 31, 2018</p>
         </div>
         <div className="_content_display2">
-            <div class="_info"><Info_box/></div>
+            <div class="_info"><Info_box balance ={this.state.bal}/></div>
             <div class="_line_area"><ColumnLineAreaChart pred={this.state.ML_data}/></div>
         </div>
             <h3>Transactions of this Month</h3>
@@ -80,12 +82,16 @@ class Account_info extends Component {
     </div>
     );
   }
-
+  __loadingPages= () =>{
+    return (<div class='load'><Loading/></div>
+      
+      );
+  }
   render() {
     
     return (
       <div className="_content">
-      {(this.state.Graph_data && this.state.ML_data) ? this.__renderPages() : 'Loading'}
+      {(this.state.Graph_data && this.state.ML_data && this.state.bal) ? this.__renderPages() : this.__loadingPages()}
       </div>
     );
   }

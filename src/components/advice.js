@@ -3,7 +3,8 @@ import './advice.css';
 
 class Advice extends Component{
     render(){
-      console.log(this.props.msg)
+      console.log('advice status')
+      console.log(this.props.status)
       return(
         <div>
           <h3 id='advice_head'>Financial Status Messages</h3>
@@ -14,7 +15,7 @@ class Advice extends Component{
             <li>{this.props.msg.msg1}</li>
             <li>{this.props.msg.msg2}</li>
             <li>{this.props.msg.msg3}</li>
-            
+            <li>Your Finance Status is "{this.props.status}"</li>
           </ul>
           
           </div>

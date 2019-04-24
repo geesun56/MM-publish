@@ -7,6 +7,7 @@ import PieChart from "../plugin/views/pie & funnel charts/Pie Chart"
 import LineChart from "../plugin/views/line charts/Line Chart"
 import Table from "./table"
 import Advice from "./advice"
+import Loading from "./loading"
 import Status_card_list from "./status_card"
 /* ---- API request address ---- */
 const base_addr = 'http://localhost:5000/'
@@ -151,7 +152,7 @@ class Overview extends Component {
                   <Table columns = {column_overview} type = 'overview' data={this.state.Recent_trans}/>          
                   </div>          
                   <div className="Detail_desc">
-                  <Advice msg = {finance_message}/>
+                  <Advice msg = {finance_message} status = {this.state.Box_data.Finance_stat}/>
                   </div>
                 </div>
               
@@ -159,11 +160,17 @@ class Overview extends Component {
     );
   }
 
+  __loadingPages= () =>{
+    return (<div class='load'><Loading/></div>
+      
+      );
+  }
+
   render() {
     console.log('rendering now')
     return (
       <div className="_content">
-      {this.state.Recent_trans && this.state.Graph_data && this.state.Pie_data && this.state.Time && this.state.Box_data? this.__renderPages() : 'Loading'}
+      {this.state.Recent_trans && this.state.Graph_data && this.state.Pie_data && this.state.Time && this.state.Box_data? this.__renderPages() : this.__loadingPages()}
       </div>
     );
   }
