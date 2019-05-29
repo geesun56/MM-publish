@@ -210,7 +210,7 @@ class Overview extends Component {
     console.log('rendering now')
     return (
       <div className="_content">
-      {this.state.Recent_trans && this.state.Graph_data && this.state.Pie_data && this.state.Time && this.state.Box_data && this.state.Loading? this.__renderPages() : this.__loadingPages()}
+       {this.__renderPages()}
       </div>
     );
   }
