@@ -114,9 +114,7 @@ class Overview extends Component {
     console.log(var2)*/
   
     
-    setTimeout(function(){
-      this.setState({Loading:true});
-      }.bind(this),2000);
+  
 
     this.setState({
       Recent_trans : var1,
