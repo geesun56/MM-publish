@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "http://geesun56.github.io/MM-publish",
   "dependencies": {
-    "chart.js": "^1.1.1",
+    "chart.js": "^2.9.4",
     "react": "^16.8.1",
     "react-chartjs": "^1.2.0",
     "react-data-grid": "^6.0.2-0",
